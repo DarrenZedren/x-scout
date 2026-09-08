@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>X Scout // Flight Deck</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="scanline" aria-hidden="true"></div>
+
+  <main class="shell">
+    <header class="topbar">
+      <div class="brandBlock">
+        <div class="brand">X SCOUT</div>
+        <div class="subbrand">LOCAL SOCIAL INTELLIGENCE <span class="slash">//</span> FLIGHT DECK <span id="version">v0.4.0</span></div>
+      </div>
+      <div class="systemStrip">
+        <div class="liveDot" id="modeDot"></div>
+        <div><span class="micro">LINK</span><strong id="modeLabel">DEMO // OFFLINE</strong></div>
+        <div class="separator"></div>
+        <div><span class="micro">CONTROL</span><strong>HUMAN-IN-COMMAND</strong></div>
+      </div>
+    </header>
+
+    <section class="commandDeck">
+      <div class="profileSelector">
+        <span class="micro">MISSION PROFILE</span>
+        <select id="profileSelect" aria-label="Mission profile"></select>
+      </div>
+
+      <button class="topicButton" id="openTopicFinder">TOPIC FINDER <span>↗</span></button>
+
+      <button class="xLinkButton" id="openXConnection">
+        <span class="xLinkDot" id="xLinkDot"></span>
+        <span><small>X LINK</small><b id="xLinkText">CONNECT</b></span>
+      </button>
+
+      <button class="launchButton" id="startScout">
+        <span class="launchHalo"></span>
+        <span class="launchText">START<br/>SCOUT</span>
+      </button>
+
+      <div class="rulesTelemetry">
+        <div><span class="micro">WINDOW</span><b>24H</b></div>
+        <div><span class="micro">BOOST</span><b>&lt;12H</b></div>
+        <div><span class="micro">HOT</span><b>&lt;6H</b></div>
+        <div><span class="micro">GRACE</span><b>7D</b></div>
+      </div>
+    </section>
+
+    <section class="radarBand">
+      <div class="radarWrap" id="radarWrap">
+        <div class="radar">
+          <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
+          <div class="axis a1"></div><div class="axis a2"></div>
+          <div class="sweep"></div>
+          <div class="blip b1"></div><div class="blip b2"></div><div class="blip b3"></div><div class="blip b4"></div>
+          <div class="radarCore"></div>
+        </div>
+        <div class="radarCaption"><span id="scanPct">00</span><small>%</small></div>
+      </div>
+
+      <div class="missionReadout">
+        <div class="micro">MISSION STATUS</div>
+        <div class="missionMessage" id="missionMessage">RADAR STANDBY</div>
+        <div class="progressTrack"><div class="progressFill" id="progressFill"></div></div>
+        <div class="quietRow"><div class="quiet" id="missionQuiet">Select a profile and launch a sweep when ready.</div><button class="textAction" id="resetSeen">RESET SEEN</button></div>
+      </div>
+
+      <div class="metrics">
+        <div class="metric"><span id="signalMetric">—</span><small>SIGNALS</small></div>
+        <div class="metric"><span id="peopleMetric">—</span><small>PEOPLE</small></div>
+        <div class="metric"><span id="conversationMetric">—</span><small>OPENINGS</small></div>
+        <div class="metric"><span id="mutualMetric">—</span><small>MUTUAL</small></div>
+      </div>
+    </section>
+
+    <nav class="navRail" aria-label="Scout sections">
+      <button data-view="people" class="active"><span class="navIndex">01</span> PEOPLE <em id="peopleCount">00</em></button>
+      <button data-view="conversations"><span class="navIndex">02</span> CONVERSATIONS <em id="conversationCount">00</em></button>
+      <button data-view="network"><span class="navIndex">03</span> NETWORK <em id="networkCount">00</em></button>
+      <button data-view="profiles"><span class="navIndex">04</span> PROFILE LAB</button>
+    </nav>
+
+    <section class="view active" id="view-people">
+      <div class="sectionHeading">
+        <div><span class="micro">NEW SIGNALS</span><h2>People worth knowing</h2></div>
+        <p>Verified, current, relevant — accounts you do not already follow.</p>
+      </div>
+      <div class="cardStream" id="peopleStream"><div class="emptyState">NO SWEEP DATA <span>Launch Scout to resolve candidates.</span></div></div>
+    </section>
+
+    <section class="view" id="view-conversations">
+      <div class="sectionHeading">
+        <div><span class="micro">LIVE OPENINGS</span><h2>Conversations worth entering</h2></div>
+        <p>Fresh posts where you may actually have something useful to add.</p>
+      </div>
+      <div class="cardStream" id="conversationStream"><div class="emptyState">NO SWEEP DATA <span>Launch Scout to resolve conversations.</span></div></div>
+    </section>
+
+    <section class="view" id="view-network">
+      <div class="sectionHeading networkHeader">
+        <div><span class="micro">RELATIONSHIP ORBIT</span><h2>Cultivate the network</h2></div>
+        <div class="networkActions">
+          <button class="ghost" id="syncNetwork">SYNC X</button>
+          <button class="ghost" id="importNetwork">IMPORT LISTS</button>
+          <button class="ghost" id="refreshNetwork">REFRESH</button>
+        </div>
+      </div>
+      <div class="networkFilters" id="networkFilters">
+        <button data-filter="ALL" class="active">ALL</button>
+        <button data-filter="MUTUAL">MUTUAL</button>
+        <button data-filter="GRACE">GRACE</button>
+        <button data-filter="REVIEW">REVIEW</button>
+        <button data-filter="PROTECTED">PROTECTED</button>
+        <button data-filter="FOLLOWS YOU">FOLLOWS YOU</button>
+      </div>
+      <div class="orbitList" id="networkStream"><div class="emptyState">NETWORK NOT LOADED</div></div>
+    </section>
+
+    <section class="view" id="view-profiles">
+      <div class="profileLab">
+        <div class="profileInput">
+          <span class="micro">DEFINE YOUR CORNER OF X</span>
+          <h2>Topic Finder</h2>
+          <label>Describe what you want Scout to find</label>
+          <textarea id="topicDescription" placeholder="AI builders, local automation, API orchestration, game dev..."></textarea>
+          <label>Exclude anything you do not want</label>
+          <textarea id="topicExclusions" class="dangerInput" placeholder="politics, religion, ragebait, spam..."></textarea>
+          <div class="profileButtons">
+            <button class="primary" id="analyseTopics">ANALYSE SIGNALS</button>
+            <button class="ghost" id="loadActiveProfile">LOAD ACTIVE</button>
+          </div>
+        </div>
+        <div class="profilePreview">
+          <span class="micro">SCOUT VECTORS</span>
+          <div class="profileNameRow"><input id="profileName" value="Custom Scout" /></div>
+          <div class="vectorLabel">CORE SIGNALS</div>
+          <div class="chips" id="wantedChips"></div>
+          <div class="vectorLabel">EXCLUSIONS <span>editable</span></div>
+          <textarea id="blockedEditor" class="chipEditor"></textarea>
+          <button class="primary saveProfile" id="saveProfile">SAVE + USE PROFILE</button>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>X SCOUT <span class="slash">//</span> LOCAL FIRST <span class="dot">•</span> YOUR API // YOUR MACHINE</div>
+      <div>NO AUTONOMOUS FOLLOW / UNFOLLOW <span class="dot">•</span> YOU AUTHORISE EVERY SOCIAL ACTION</div>
+    </footer>
+  </main>
+
+  <div class="drawer" id="detailDrawer" aria-hidden="true">
+    <button class="drawerClose" id="drawerClose">×</button>
+    <div class="drawerScore" id="drawerScore">—</div>
+    <div class="micro" id="drawerType">SIGNAL</div>
+    <h3 id="drawerTitle">Select a signal</h3>
+    <div class="drawerMeta" id="drawerMeta"></div>
+    <p id="drawerText"></p>
+    <div class="drawerReason" id="drawerReason"></div>
+    <div class="drawerActions" id="drawerActions"></div>
+  </div>
+
+  <div class="modalBackdrop" id="modalBackdrop" aria-hidden="true">
+    <div class="modal" id="modalBox">
+      <button class="modalClose" id="modalClose">×</button>
+      <div class="micro" id="modalKicker">CONFIRM ACTION</div>
+      <h3 id="modalTitle">Human confirmation</h3>
+      <p id="modalBody"></p>
+      <div id="modalContent"></div>
+      <div class="modalActions" id="modalActions"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>

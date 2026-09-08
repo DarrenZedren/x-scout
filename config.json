@@ -1,0 +1,91 @@
+{
+  "results": {
+    "people": 25,
+    "conversations": 25
+  },
+  "followers": {
+    "minimum": 100,
+    "maximum": 50000,
+    "preferred_maximum": 15000
+  },
+  "activity": {
+    "maximum_hours": 24,
+    "strong_boost_hours": 12,
+    "highest_boost_hours": 6
+  },
+  "verification": {
+    "allowed_types": [
+      "blue",
+      "business"
+    ],
+    "blocked_types": [
+      "government",
+      "none"
+    ]
+  },
+  "language": "en",
+  "api": {
+    "max_results_per_query": 50,
+    "max_pages_per_query": 3
+  },
+  "network": {
+    "grace_days": 7
+  },
+  "wanted_terms": [
+    "AI coding",
+    "vibe coding",
+    "ChatGPT",
+    "Grok",
+    "Claude",
+    "Cursor",
+    "AI agents",
+    "MCP",
+    "automation",
+    "orchestration",
+    "Python",
+    "API"
+  ],
+  "query_groups": [
+    [
+      "AI coding",
+      "vibe coding",
+      "ChatGPT",
+      "Grok",
+      "Claude",
+      "Cursor"
+    ],
+    [
+      "AI agents",
+      "MCP",
+      "automation",
+      "orchestration",
+      "Python",
+      "API"
+    ]
+  ],
+  "activity_terms": [
+    "build",
+    "building",
+    "make",
+    "creating",
+    "project",
+    "test",
+    "prototype",
+    "working on"
+  ],
+  "blocked_terms": [
+    "ragebait",
+    "politics",
+    "immigration",
+    "religion",
+    "murder",
+    "outrage",
+    "giveaway",
+    "follow4follow",
+    "guaranteed profit"
+  ],
+  "quality_floor": {
+    "people": 64,
+    "conversations": 68
+  }
+}
