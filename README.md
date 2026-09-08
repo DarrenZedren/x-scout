@@ -1,5 +1,25 @@
 # X Scout v0.4.0 — Local X Link
 
+## Quick Start
+
+1. Download or clone X Scout.
+2. Double-click `run_x_scout.bat`.
+3. Create your own X Developer App at `https://console.x.com/`.
+4. Enable OAuth 2.0 as a Native App / public client.
+5. Set the callback URL to:
+
+   `http://127.0.0.1:8765/callback`
+
+6. Open X Scout and click **X LINK**.
+7. Paste your OAuth 2.0 Client ID and click **CONNECT X**.
+8. Authorise your X account in the browser.
+9. Create or choose a Mission Profile.
+10. Press **START SCOUT**.
+
+No X Scout server is involved. Your credentials, database, and API usage remain on your own computer.
+
+
+
 X Scout is a **local-first desktop X discovery and network-management tool**. There is no X Scout server, hosted account, subscription service, or central database.
 
 Each copy runs independently on the user's own computer:
